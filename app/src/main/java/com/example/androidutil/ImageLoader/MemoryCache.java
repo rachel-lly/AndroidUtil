@@ -3,7 +3,7 @@ package com.example.androidutil.ImageLoader;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
-class MemoryCache implements ImageCache {
+class MemoryCache implements BitmapCache {
 
     LruCache<String, Bitmap> mImageCache;
 

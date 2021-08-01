@@ -2,7 +2,7 @@ package com.example.androidutil.ImageLoader;
 
 import android.graphics.Bitmap;
 
-class DoubleCache implements ImageCache{
+class DoubleCache implements BitmapCache {
 
     MemoryCache mMemoryCache = new MemoryCache();
     DiskCache mDiskCache = new DiskCache();

@@ -9,16 +9,56 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-class ImageLoader {
+public final class ImageLoader {
+
+
+    private static ImageLoader sInstance;
+
 
     //图片缓存
-    ImageCache mImageCache = null;
+    BitmapCache mImageCache = new MemoryCache();
+
+    //网络请求队列
+    //private RequestQueue mImageQueue;
+
+    //图片加载配置对象
+    private ImageLoaderConfig mConfig;
+
+    //图片加载中显示的图片id
+    int mLoadingImageId;
+
+    //图片加载失败显示的图片id
+    int mLoadingFailedImageId;
+
 
     //线程池
     ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    public void setImageCache(ImageCache mImageCache) {
+    private ImageLoader(){
+
+    }
+
+    public void setImageCache(BitmapCache mImageCache) {
         this.mImageCache = mImageCache;
+    }
+
+    public static ImageLoader getInstance(){
+        if(sInstance == null){
+            synchronized (ImageLoader.class){
+                if(sInstance == null){
+                    sInstance = new ImageLoader();
+                }
+            }
+        }
+        return sInstance;
+    }
+
+    public void init(ImageLoaderConfig imageLoaderConfig){
+        mConfig = imageLoaderConfig;
+
+
+        //mImageQueue = new RequestQueue(mConfig.threadCount);
+        //mImageQueue.start();
     }
 
     //加载图片
@@ -58,4 +98,10 @@ class ImageLoader {
         return bitmap;
     }
 
+//    public void stop(){
+//        mImageQueue.stop();
+//    }
+
 }
+
+

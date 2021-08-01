@@ -2,9 +2,9 @@ package com.example.androidutil.DesignModel.Builder;
 
 public abstract class Computer {
 
-    protected String mBoard;
-    protected String mDisplay;
-    protected String mOS;
+    String mBoard;
+    String mDisplay;
+    String mOS;
 
     public Computer() {
     }

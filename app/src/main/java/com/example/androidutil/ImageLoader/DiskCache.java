@@ -3,12 +3,11 @@ package com.example.androidutil.ImageLoader;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-class DiskCache implements ImageCache{
+class DiskCache implements BitmapCache {
 
     static String cacheDir = "sdcard/cache/";
 

@@ -2,7 +2,7 @@ package com.example.androidutil.ImageLoader;
 
 import android.graphics.Bitmap;
 
-public interface ImageCache {
+public interface BitmapCache {
 
     Bitmap get(String url);
 
