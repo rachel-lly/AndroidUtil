@@ -2,9 +2,10 @@ package com.example.androidutil.DesignModel.Builder;
 
 public abstract class Builder {
 
-    public abstract void buildBoard(String board);
-    public abstract void buildDisplay(String display);
-    public abstract void setOS();
+    //链式调用
+    public abstract Builder buildBoard(String board);
+    public abstract Builder buildDisplay(String display);
+    public abstract Builder setOS();
 
     public abstract Computer createComputer();
 }

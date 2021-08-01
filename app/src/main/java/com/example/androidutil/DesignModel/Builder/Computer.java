@@ -18,6 +18,15 @@ public abstract class Computer {
     }
 
     public abstract void setOS();
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "mBoard='" + mBoard + '\'' +
+                ", mDisplay='" + mDisplay + '\'' +
+                ", mOS='" + mOS + '\'' +
+                '}';
+    }
 }
 
 
