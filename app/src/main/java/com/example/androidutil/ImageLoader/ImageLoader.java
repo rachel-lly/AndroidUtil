@@ -17,7 +17,7 @@ class ImageLoader {
     //线程池
     ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    public void setmImageCache(ImageCache mImageCache) {
+    public void setImageCache(ImageCache mImageCache) {
         this.mImageCache = mImageCache;
     }
 
