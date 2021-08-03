@@ -1,4 +1,4 @@
-package com.example.androidutil.DesignModel.Builder;
+package com.example.androidutil.designmodel.builder;
 
 class Macbook extends Computer {
 

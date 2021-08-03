@@ -1,4 +1,4 @@
-package com.example.androidutil.ImageLoader;
+package com.example.androidutil.imageloader;
 
 public class ImageLoaderConfig {
 
