@@ -19,7 +19,7 @@ public final class ImageLoader {
     BitmapCache mImageCache = new MemoryCache();
 
     //网络请求队列
-    //private RequestQueue mImageQueue;
+    private RequestQueue mImageQueue;
 
     //图片加载配置对象
     private ImageLoaderConfig mConfig;
@@ -57,29 +57,36 @@ public final class ImageLoader {
         mConfig = imageLoaderConfig;
 
 
-        //mImageQueue = new RequestQueue(mConfig.threadCount);
-        //mImageQueue.start();
+        mImageQueue = new RequestQueue(mConfig.threadCount);
+        mImageQueue.start();
     }
 
     //加载图片
-    public void displayImage(final String url, final ImageView imageView){
-        Bitmap bitmap = mImageCache.get(url);
-        if(bitmap != null){
-            imageView.setImageBitmap(bitmap);
-            return;
-        }
-        imageView.setTag(url);
-        mExecutorService.submit(() -> {
+    public void displayImage(final String uri, final ImageView imageView,final DisplayConfig displayConfig,final ImageListener listener) {
 
-            Bitmap bm = downloadImage(url);
-            if(bm == null){
-                return;
-            }
-            if(imageView.getTag().equals(url)){
-                imageView.setImageBitmap(bm);
-            }
-            mImageCache.put(url,bm);
-        });
+
+        BitmapRequest request = new BitmapRequest(imageView,uri,displayConfig,listener);
+        request.displayConfig = request.displayConfig !=null?request.displayConfig:mConfig.displayConfig;
+        request.setLoadPolicy(mConfig.loaderPolicy);
+        mImageQueue.addRequest(request);
+
+//        Bitmap bitmap = mImageCache.get(uri);
+//        if(bitmap != null){
+//            imageView.setImageBitmap(bitmap);
+//            return;
+//        }
+//        imageView.setTag(uri);
+//        mExecutorService.submit(() -> {
+//
+//            Bitmap bm = downloadImage(uri);
+//            if(bm == null){
+//                return;
+//            }
+//            if(imageView.getTag().equals(uri)){
+//                imageView.setImageBitmap(bm);
+//            }
+//            mImageCache.put(uri,bm);
+//        });
     }
 
     private Bitmap downloadImage(String imageUrl){
@@ -98,9 +105,9 @@ public final class ImageLoader {
         return bitmap;
     }
 
-//    public void stop(){
-//        mImageQueue.stop();
-//    }
+    public void stop(){
+        mImageQueue.stop();
+    }
 
 }
 
