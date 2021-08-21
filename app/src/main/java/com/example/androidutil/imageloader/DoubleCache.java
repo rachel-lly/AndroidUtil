@@ -20,4 +20,9 @@ class DoubleCache implements BitmapCache {
         mMemoryCache.put(url, bitmap);
         mDiskCache.put(url, bitmap);
     }
+
+    @Override
+    public Bitmap get(BitmapRequest request) {
+        return null;
+    }
 }

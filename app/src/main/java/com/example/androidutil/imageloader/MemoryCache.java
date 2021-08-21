@@ -35,4 +35,9 @@ class MemoryCache implements BitmapCache {
     public void put(String url, Bitmap bitmap) {
         mImageCache.put(url,bitmap);
     }
+
+    @Override
+    public Bitmap get(BitmapRequest request) {
+        return null;
+    }
 }

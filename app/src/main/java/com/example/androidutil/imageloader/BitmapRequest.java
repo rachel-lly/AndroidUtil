@@ -5,12 +5,15 @@ import android.widget.ImageView;
 class BitmapRequest implements Comparable<BitmapRequest>{
 
     public int serialNum;
+    public boolean justCacheInMem;
     LoaderPolicy mLoaderPolicy = new SerialPolicy();
 
     ImageView imageView;
     String uri;
     DisplayConfig displayConfig;
     ImageListener imageListener;
+
+    boolean isCancel = false;
 
     public BitmapRequest(ImageView imageView, String uri, DisplayConfig displayConfig, ImageListener imageListener) {
         this.imageView = imageView;
@@ -27,4 +30,10 @@ class BitmapRequest implements Comparable<BitmapRequest>{
     public void setLoadPolicy(LoaderPolicy mLoaderPolicy) {
         this.mLoaderPolicy = mLoaderPolicy;
     }
+
+    public boolean isCancel() {
+        return isCancel;
+    }
+
+
 }

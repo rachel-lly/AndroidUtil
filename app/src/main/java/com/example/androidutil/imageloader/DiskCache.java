@@ -36,4 +36,9 @@ class DiskCache implements BitmapCache {
             }
         }
     }
+
+    @Override
+    public Bitmap get(BitmapRequest request) {
+        return null;
+    }
 }
