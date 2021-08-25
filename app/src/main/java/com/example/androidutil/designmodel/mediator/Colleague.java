@@ -6,6 +6,4 @@ abstract class Colleague {
     public Colleague(Mediator mediator) {
         this.mediator = mediator;
     }
-
-    public abstract void action();
 }
