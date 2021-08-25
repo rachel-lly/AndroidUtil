@@ -1,4 +1,4 @@
-package com.example.androidutil.designmodel.Observer;
+package com.example.androidutil.designmodel.observer;
 
 class Test {
     public static void main(String[] args) {
