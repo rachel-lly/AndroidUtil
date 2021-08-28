@@ -1,6 +1,8 @@
 package com.example.androidutil.imageloader;
 
 import android.widget.ImageView;
+
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,9 +53,12 @@ public final class ImageLoader {
     public void init(ImageLoaderConfig imageLoaderConfig){
         mConfig = imageLoaderConfig;
 
-
+        checkConfig();
         mRequestQueue = new RequestQueue(mConfig.threadCount);
         mRequestQueue.start();
+    }
+
+    private void checkConfig() {
     }
 
     //加载图片
@@ -94,24 +99,37 @@ public final class ImageLoader {
         return mImageCache;
     }
 
-    class RequestDispatcher extends Thread{
+    static class RequestDispatcher extends Thread{
+        private BlockingQueue<BitmapRequest> requestQueue;
+        public RequestDispatcher(BlockingQueue<BitmapRequest> requestQueue) {
+            this.requestQueue = requestQueue;
+        }
+
         @Override
         public void run() {
             while (!this.isInterrupted()){
-                final BitmapRequest request = mRequestQueue.take();
-                if(request.isCancel()){
-                    continue;
+
+                try {
+                    BitmapRequest request = requestQueue.take();
+                    if(request.isCancel()){
+                        continue;
+                    }
+                    final String schema = parseSchema(request.uri);
+                    Loader imageLoader = LoaderManager.getInstance().getLoader(schema);
+                    imageLoader.loadImage(request);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                final String schema = parseSchema(request.uri);
-                Loader imageLoader = LoaderManager.getInstance().getLoader(schema);
-                imageLoader.loadImage(request);
+
             }
         }
+
+        private String parseSchema(String uri) {
+            return null;
+        }
+
     }
 
-    private String parseSchema(String uri) {
-        return null;
-    }
 
 }
 
